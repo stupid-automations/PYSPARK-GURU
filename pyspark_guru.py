@@ -1,3 +1,7 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+>> KEY
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+in aws we can not use open fie from s3.
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 >> TOPIC
@@ -1428,3 +1432,4 @@ Testing: Run a proof-of-concept (POC) with your specific workload to compare run
 
 Conclusion
 Databricks is likely more cost-effective for large-scale or complex PySpark workloads, especially with spot instances and Photon, potentially costing $39–$59/month for the example job compared to Glue’s ~$79.20/month. However, Glue is simpler and may be cheaper for smaller, less frequent jobs with minimal management needs. To confirm, test both services with your actual PySpark code and data, as costs depend heavily on workload specifics. For Glue pricing details, visit https://aws.amazon.com/glue/pricing/. For Databricks pricing, check https://databricks.com/product/pricing.
+
