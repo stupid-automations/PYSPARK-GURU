@@ -1,3 +1,58 @@
+
+"""
+########################################################
+# SEND EMAIL MODULE
+########################################################
+
+import sys
+import boto3
+import json
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from awsglue.dynamicframe import DynamicFrame
+from pyspark.sql import DataFrame, SparkSession
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType
+from pyspark.sql.functions import when, col, instr, substring,  to_timestamp, length
+from datetime import date, timedelta 
+
+def send_mail(sender, receiver, subject, body, region_name ='us-east-1'):
+           
+    #s3_client = boto3.client('s3', region_name)
+    ses = boto3.client('ses')
+    try:
+        ses.send_email(
+        Source = sender,
+        Destination = {'ToAddresses': [receiver]},
+        Message = {'Subject': { 'Data': subject, 'Charset': 'UTF-8'},
+           'Body': {'Text':{'Data':body, 'Charset': 'UTF-8'} } }
+        )
+    except Exception as e:
+        print("Unable to send email, failed with error: {}".format(str(e)))
+
+        
+########################################################
+# SEND EMAIL
+########################################################
+
+import sys
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+
+
+receiver = 'Bhaskar.C.Sati@nttdata.com'
+sender = 'gaurav.kesari@nttdata.com'
+subject = 'This is a test email'
+body = email_body
+response = send_mail(sender, receiver, subject, body, region_name ='us-east-1')
+"""
+
+
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 >> KEY
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1432,4 +1487,5 @@ Testing: Run a proof-of-concept (POC) with your specific workload to compare run
 
 Conclusion
 Databricks is likely more cost-effective for large-scale or complex PySpark workloads, especially with spot instances and Photon, potentially costing $39–$59/month for the example job compared to Glue’s ~$79.20/month. However, Glue is simpler and may be cheaper for smaller, less frequent jobs with minimal management needs. To confirm, test both services with your actual PySpark code and data, as costs depend heavily on workload specifics. For Glue pricing details, visit https://aws.amazon.com/glue/pricing/. For Databricks pricing, check https://databricks.com/product/pricing.
+
 
